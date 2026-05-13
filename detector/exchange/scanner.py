@@ -3,7 +3,7 @@ import time
 from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRESHOLD
 from detector.detector import detect_pattern
 from exchange.binance_feed import get_closes
-
+from alerts.telegram import send_telegram_message
 
 def scan_once():
     for symbol in SYMBOLS:
