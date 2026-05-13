@@ -1,14 +1,20 @@
-from detector.chart_renderer import render_chart
-from detector.image_detector import detect_image_pattern
+import os
+import matplotlib.pyplot as plt
 
 
-closes = [
-    100, 98, 96, 94, 95, 97, 99,
-    97, 95, 94, 96, 99, 103, 106
-]
+TEMP_DIR = "temp"
 
-image_path = render_chart(closes)
 
-result = detect_image_pattern(image_path)
+def render_chart(closes, output_path="temp/current_chart.png"):
+    os.makedirs(TEMP_DIR, exist_ok=True)
 
-print(result)
+    plt.figure(figsize=(6, 4))
+    plt.plot(closes, linewidth=2)
+
+    plt.axis("off")
+    plt.tight_layout(pad=0)
+
+    plt.savefig(output_path, dpi=100, bbox_inches="tight", pad_inches=0)
+    plt.close()
+
+    return output_path
