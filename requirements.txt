@@ -5,6 +5,5 @@ ccxt
 scipy
 python-dotenv
 matplotlib
-opencv-python
+opencv-python-headless
 scikit-image
-requests
