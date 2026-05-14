@@ -1,8 +1,9 @@
 import time
 
 from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRESHOLD
-from detector.detector import detect_pattern
-from exchange.binance_feed import get_closes
+from detector.chart_renderer import render_chart
+from detector.image_detector import detect_image_pattern
+from detector.exchange.binance_feed import get_closes
 from alerts.telegram import send_telegram_message
 
 
@@ -11,9 +12,11 @@ def scan_once():
         try:
             closes = get_closes(symbol, TIMEFRAME, WINDOW_SIZE)
 
-            result = detect_pattern(closes)
+            image_path = render_chart(closes)
 
-            similarity = result["similarity"]
+            result = detect_image_pattern(image_path)
+
+            similarity = float(result["similarity"])
             pattern = result["pattern"]
 
             if similarity >= ALERT_THRESHOLD:
