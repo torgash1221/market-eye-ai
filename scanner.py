@@ -56,7 +56,9 @@ def run_scanner():
         check_telegram_commands()
         scan_once()
 
-        time.sleep(60)
+        for _ in range(12):
+            check_telegram_commands()
+            time.sleep(5)
 
 
 if __name__ == "__main__":
