@@ -9,7 +9,7 @@ SYMBOLS = [
     "WLD/USDT"
 ]
 
-TIMEFRAME = "15m"
+TIMEFRAME = "1m"
 
 WINDOW_SIZE = 50
 
