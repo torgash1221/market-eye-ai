@@ -4,7 +4,7 @@ from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRES
 from detector.chart_renderer import render_chart
 from detector.image_detector import detect_image_pattern
 from detector.exchange.binance_feed import get_closes
-from telegram import send_telegram_message
+from telegram import send_telegram_message, check_telegram_commands
 
 
 def scan_once():
@@ -13,7 +13,6 @@ def scan_once():
             closes = get_closes(symbol, TIMEFRAME, WINDOW_SIZE)
 
             image_path = render_chart(closes)
-
             result = detect_image_pattern(image_path)
 
             similarity = float(result["similarity"])
@@ -53,7 +52,10 @@ def scan_once():
 def run_scanner():
     while True:
         print("\n=== NEW SCAN ===")
+
+        check_telegram_commands()
         scan_once()
+
         time.sleep(60)
 
 
