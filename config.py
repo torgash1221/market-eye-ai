@@ -1,12 +1,37 @@
 # =========================
 # BINANCE SETTINGS
 # =========================
-
 SYMBOLS = [
     "BTC/USDT",
     "ETH/USDT",
+    "BNB/USDT",
     "SOL/USDT",
-    "WLD/USDT"
+    "XRP/USDT",
+    "DOGE/USDT",
+    "ADA/USDT",
+    "AVAX/USDT",
+    "LINK/USDT",
+    "LTC/USDT",
+    "BCH/USDT",
+    "DOT/USDT",
+    "TRX/USDT",
+    "MATIC/USDT",
+    "TON/USDT",
+    "ATOM/USDT",
+    "APT/USDT",
+    "ARB/USDT",
+    "OP/USDT",
+    "SUI/USDT",
+    "WLD/USDT",
+    "NEAR/USDT",
+    "PEPE/USDT",
+    "1000PEPE/USDT",
+    "SHIB/USDT",
+    "UNI/USDT",
+    "ETC/USDT",
+    "FIL/USDT",
+    "INJ/USDT",
+    "SEI/USDT"
 ]
 
 TIMEFRAME = "1m"
