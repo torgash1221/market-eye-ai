@@ -4,3 +4,7 @@ requests
 ccxt
 scipy
 python-dotenv
+matplotlib
+opencv-python
+scikit-image
+requests
