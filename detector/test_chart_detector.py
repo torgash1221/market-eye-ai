@@ -12,7 +12,7 @@ SYMBOLS = [
 ]
 
 TIMEFRAME = "1m"
-WINDOW = 100
+WINDOW = 50
 
 
 for symbol in SYMBOLS:
