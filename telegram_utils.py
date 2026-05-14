@@ -27,6 +27,41 @@ def send_telegram_message(message):
     return response.json()
 
 
+def send_telegram_photo(image_path, caption=""):
+
+    if not TELEGRAM_BOT_TOKEN:
+        print("Telegram token not set")
+        return
+
+    if not TELEGRAM_CHAT_ID:
+        print("Telegram chat id not set")
+        return
+
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendPhoto"
+
+    try:
+
+        with open(image_path, "rb") as photo:
+
+            payload = {
+                "chat_id": TELEGRAM_CHAT_ID,
+                "caption": caption
+            }
+
+            response = requests.post(
+                url,
+                data=payload,
+                files={"photo": photo},
+                timeout=20
+            )
+
+        return response.json()
+
+    except Exception as e:
+
+        print(f"Telegram photo error: {e}")
+
+
 def check_telegram_commands():
 
     global LAST_UPDATE_ID
@@ -41,6 +76,7 @@ def check_telegram_commands():
     try:
 
         response = requests.get(url, params=params, timeout=10)
+
         data = response.json()
 
         if not data.get("ok"):
@@ -51,7 +87,9 @@ def check_telegram_commands():
             LAST_UPDATE_ID = update["update_id"]
 
             message = update.get("message", {})
+
             text = message.get("text", "")
+
             chat_id = message.get("chat", {}).get("id")
 
             if text == "/start":
@@ -82,4 +120,5 @@ def check_telegram_commands():
                 )
 
     except Exception as e:
+
         print(f"Telegram command error: {e}")
