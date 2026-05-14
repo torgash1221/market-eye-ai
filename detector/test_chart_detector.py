@@ -1,6 +1,6 @@
 from detector.chart_renderer import render_chart
 from detector.image_detector import detect_image_pattern
-from exchange.binance_feed import get_closes
+from detector.exchange.binance_feed import get_closes
 
 
 SYMBOLS = [
