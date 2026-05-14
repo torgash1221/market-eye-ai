@@ -5,7 +5,7 @@ from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRES
 from detector.chart_renderer import render_chart
 from detector.image_detector import detect_image_pattern
 from detector.exchange.binance_feed import get_ohlcv
-from telegram_utils import send_telegram_message, check_telegram_commands
+from telegram_utils import send_telegram_photo, check_telegram_commands
 
 
 def scan_once():
@@ -45,8 +45,7 @@ def scan_once():
                 )
 
                 print(message)
-
-                send_telegram_message(message)
+                send_telegram_photo(image_path, message)
 
             elif similarity >= WATCH_THRESHOLD:
 
@@ -60,8 +59,7 @@ def scan_once():
                 )
 
                 print(message)
-
-                send_telegram_message(message)
+                send_telegram_photo(image_path, message)
 
             else:
 
@@ -79,16 +77,12 @@ def run_scanner():
         print("\n=== NEW SCAN ===")
 
         check_telegram_commands()
-
         scan_once()
 
         for _ in range(12):
-
             check_telegram_commands()
-
             time.sleep(5)
 
 
 if __name__ == "__main__":
-
     run_scanner()
