@@ -4,7 +4,7 @@ from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRES
 from detector.chart_renderer import render_chart
 from detector.image_detector import detect_image_pattern
 from detector.exchange.binance_feed import get_closes
-from telegram import send_telegram_message, check_telegram_commands
+from telegram_utils import send_telegram_message, check_telegram_commands
 
 
 def scan_once():
