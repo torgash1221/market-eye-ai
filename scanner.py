@@ -1,5 +1,5 @@
 import time
-from datetime import datetime
+from datetime import datetime, UTC
 
 from config import SYMBOLS, TIMEFRAME, WINDOW_SIZE, ALERT_THRESHOLD, WATCH_THRESHOLD
 from detector.chart_renderer import render_chart
@@ -18,14 +18,16 @@ def scan_once():
 
             closes = [candle[4] for candle in candles]
 
-            start_time = datetime.utcfromtimestamp(
-                candles[0][0] / 1000
+            start_time = datetime.fromtimestamp(
+                candles[0][0] / 1000,
+                UTC
             ).strftime("%H:%M")
 
-            end_time = datetime.utcfromtimestamp(
-                candles[-1][0] / 1000
+            end_time = datetime.fromtimestamp(
+                candles[-1][0] / 1000,
+                UTC
             ).strftime("%H:%M")
-            
+
             image_path = render_chart(candles)
 
             result = detect_image_pattern(image_path)
@@ -45,6 +47,7 @@ def scan_once():
                 )
 
                 print(message)
+
                 send_telegram_photo(image_path, message)
 
             elif similarity >= WATCH_THRESHOLD:
@@ -59,6 +62,7 @@ def scan_once():
                 )
 
                 print(message)
+
                 send_telegram_photo(image_path, message)
 
             else:
@@ -77,12 +81,16 @@ def run_scanner():
         print("\n=== NEW SCAN ===")
 
         check_telegram_commands()
+
         scan_once()
 
         for _ in range(12):
+
             check_telegram_commands()
+
             time.sleep(5)
 
 
 if __name__ == "__main__":
+
     run_scanner()
