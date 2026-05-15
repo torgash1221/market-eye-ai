@@ -25,8 +25,8 @@ def scan_once():
             end_time = datetime.utcfromtimestamp(
                 candles[-1][0] / 1000
             ).strftime("%H:%M")
-
-            image_path = render_chart(closes)
+            
+            image_path = render_chart(candles)
 
             result = detect_image_pattern(image_path)
 
