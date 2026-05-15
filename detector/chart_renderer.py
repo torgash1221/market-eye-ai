@@ -1,20 +1,36 @@
 import os
-import matplotlib.pyplot as plt
+import pandas as pd
+import mplfinance as mpf
+from datetime import datetime
 
 
-TEMP_DIR = "temp"
+def render_chart(candles, filename="current_chart.png"):
+    os.makedirs("charts", exist_ok=True)
 
+    rows = []
 
-def render_chart(closes, output_path="temp/current_chart.png"):
-    os.makedirs(TEMP_DIR, exist_ok=True)
+    for candle in candles:
+        rows.append({
+            "Date": datetime.utcfromtimestamp(candle[0] / 1000),
+            "Open": candle[1],
+            "High": candle[2],
+            "Low": candle[3],
+            "Close": candle[4],
+            "Volume": candle[5],
+        })
 
-    plt.figure(figsize=(6, 4))
-    plt.plot(closes, linewidth=2)
+    df = pd.DataFrame(rows)
+    df.set_index("Date", inplace=True)
 
-    plt.axis("off")
-    plt.tight_layout(pad=0)
+    image_path = os.path.join("charts", filename)
 
-    plt.savefig(output_path, dpi=100, bbox_inches="tight", pad_inches=0)
-    plt.close()
+    mpf.plot(
+        df,
+        type="candle",
+        style="charles",
+        volume=False,
+        axisoff=True,
+        savefig=dict(fname=image_path, dpi=120, bbox_inches="tight")
+    )
 
-    return output_path
+    return image_path
